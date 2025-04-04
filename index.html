@@ -144,6 +144,81 @@
   <div id="panel">
     <h3>Temperatura del Robot</h3>
     <div class="temp-display" id="temperatura">-- °C</div>
+	  <section id="sensorData" class="card">
+            <h2>Estado del Robot</h2>
+			<div class="sensor-row">
+				<div class="sensor-card">
+                    <div class="sensor-content">
+                        <i class="fas fa-stop-circle"></i> <!-- Icono de batería -->
+                        <p><strong>Estado</strong></p>
+                    </div>
+                    <p><span id="robotStatus">Inactivo</span></p>
+                </div>
+				<div class="sensor-card">
+                    <div class="sensor-content">
+                        <i class="fas fa-battery-half"></i> <!-- Icono de batería -->
+                        <p><strong>Batería</strong></p>
+                    </div>
+                    <p><span id="batteryLevel">100%</span></p>
+                </div>
+			</div>
+            <div class="sensor-row">
+                <div class="sensor-card">
+		<div class="sensor-content">
+                        <i class="fas fa-thermometer-half"></i> <!-- Icono de profundidad -->
+                        <p><strong>Tª Aire</strong></p>
+                    </div>
+                    <p id="airTemp">7.09 °C</p>
+                </div>
+                <div class="sensor-card">
+					<div class="sensor-content">
+                        <i class="fas fa-tint"></i> <!-- Icono de profundidad -->
+                        <p><strong>Tª Agua</strong></p>
+                    </div>
+                    <p id="waterTemp">9.7 °C</p>
+                </div>
+            </div>
+            <div class="sensor-row">
+                <div class="sensor-card">
+					<div class="sensor-content">
+                        <i class="fas fa-vial"></i> <!-- Icono de profundidad -->
+                        <p><strong>pH</strong></p>
+                    </div>
+                    <p id="ph">7.77</p>
+                </div>
+                <div class="sensor-card">
+					<div class="sensor-content">
+                        <i class="fas fa-flask"></i> <!-- Icono de profundidad -->
+                        <p><strong>O²</strong></p>
+                    </div>
+                    <p id="o2">8.04 mg/L</p>
+                </div>
+            </div>
+            <div class="sensor-row">
+                <div class="sensor-card">
+					<div class="sensor-content">
+                        <i class="fas fa-water"></i> <!-- Icono de profundidad -->
+                        <p><strong>Cond.</strong></p>
+                    </div>
+                    <p id="conductivity">0.88 µS/cm</p>
+                </div>
+                <div class="sensor-card">
+					<div class="sensor-content">
+                        <i class="fas fa-random"></i> <!-- Icono de profundidad -->
+                        <p><strong>Redox</strong></p>
+                    </div>
+                    <p id="redox">106.1 mV</p>
+                </div>
+                <div class="sensor-card">
+                    <div class="sensor-content">
+                        <i class="fas fa-ruler-combined"></i> <!-- Icono de profundidad -->
+                        <p><strong>Deep</strong></p>
+                    </div>
+                    <p id="depth">1.5 m</p>
+                </div>
+            </div>
+        </section>
+
     <button onclick="logout()">Cerrar sesión</button>
   </div>
 </div>
