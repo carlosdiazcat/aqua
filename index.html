@@ -137,8 +137,8 @@
 <div class="container">
 	<div id="auth-buttons">
 		<h2>Login / Registro</h2>
-		<input type="email" id="email" placeholder="Correo" />
-		<input type="password" id="password" placeholder="Contraseña" />
+		<input type="email" id="email" placeholder="Correo electrónico"><br>
+    		<input type="password" id="password" placeholder="Contraseña"><br>
 		<button onclick="login()">Iniciar Sesión</button>
 		<button onclick="register()">Registrarse</button>
   	</div>
@@ -256,17 +256,17 @@ const sensores = {
 
   // Registro
   function register() {
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    	const email = document.getElementById("email").value;
+	const password = document.getElementById("password").value;	
     auth.createUserWithEmailAndPassword(email, password)
-      .then(() => alert("Usuario registrado"))
-      .catch(err => alert(err.message));
+      .then(() => alert("✅ Usuario registrado"))
+      .catch(err => alert("⚠️" + err.message));
   }
 
   // Login
   function login() {
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    	const email = document.getElementById("email").value;
+	const password = document.getElementById("password").value;
     auth.signInWithEmailAndPassword(email, password)
       .then(() => {
       	document.getElementById("auth-buttons").style.display = "none";
@@ -285,18 +285,18 @@ const sensores = {
   // Escuchar cambios de temperatura
   auth.onAuthStateChanged(user => {
     if (user) {
-      document.getElementById("panel").style.display = "block";
-      const tempRef = db.ref("robot/temperatura");
-      tempRef.on("value", snapshot => {
-        document.getElementById("temperatura").textContent = snapshot.val() + " °C";
-      });
+	document.getElementById("panel").style.display = "block";
+	document.getElementById("auth-buttons").style.display = "none";
+	const tempRef = db.ref("robot/temperatura");
+	tempRef.on("value", snapshot => {
+        	document.getElementById("temperatura").textContent = snapshot.val() + " °C";
+      	});
     } else {
-      document.getElementById("panel").style.display = "none";
+    	document.getElementById("auth-buttons").style.display = "block";
+     	document.getElementById("panel").style.display = "none";
     }
   });
 
-  const emailInput = document.getElementById("email");
-  const passwordInput = document.getElementById("password");
 </script>
 
 </body>
