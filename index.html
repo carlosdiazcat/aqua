@@ -270,7 +270,7 @@ const sensores = {
       .then(userCredential => {
         const uid = userCredential.user.uid;
         // Datos iniciales
-        return db.collection("users").doc(uid).set({
+        return db1.collection("users").doc(uid).set({
           email,
           sensores: {
             temperatura: 22.5,
@@ -304,7 +304,7 @@ const sensores = {
     });
   }
 function mostrarSensores(uid) {
-    db.collection("users").doc(uid).get()
+    db1.collection("users").doc(uid).get()
       .then(doc => {
         if (doc.exists) {
           const sensores = doc.data().sensores;
