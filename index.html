@@ -160,7 +160,7 @@
                         <i class="fas fa-battery-half"></i> <!-- Icono de batería -->
                         <p><strong>Batería</strong></p>
                     </div>
-                    <p><span id="batteryLevel">100%</span></p>
+                    <p><span id="bateria">100%</span></p>
                 </div>
 			</div>
             <div class="sensor-row">
@@ -262,7 +262,21 @@ const sensores = {
     	const email = document.getElementById("email").value;
 	const password = document.getElementById("password").value;	
     auth.createUserWithEmailAndPassword(email, password)
-      .then(() => alert("✅ Usuario registrado"))
+      .then(userCredential => {
+        const uid = userCredential.user.uid;
+        // Datos iniciales
+        return db.collection("users").doc(uid).set({
+          email,
+          sensores: {
+            temperatura: 22.5,
+            bateria: 78,
+            ph: 6.8,
+            o2: 4.2,
+            t_agua: 18.3
+          }
+        });
+      })
+	.then(() => alert("✅ Usuario registrado"))
       .catch(err => alert("⚠️" + err.message));
   }
 
@@ -284,16 +298,29 @@ const sensores = {
       document.getElementById("panel").style.display = "none";
     });
   }
-
+function mostrarSensores(uid) {
+    db.collection("users").doc(uid).get()
+      .then(doc => {
+        if (doc.exists) {
+          const sensores = doc.data().sensores;
+          const dashboard = document.getElementById("dashboard");
+          dashboard.innerHTML += `
+            <h3>Sensores del Robot 🤖</h3>
+            <div>🌡️ Temp. Aire: ${sensores.temperatura}°C</div>
+            <div>🔋 Batería: ${sensores.bateria}%</div>
+            <div>💧 Temp. Agua: ${sensores.t_agua}°C</div>
+            <div>🧪 pH: ${sensores.ph}</div>
+            <div>🫁 Oxígeno: ${sensores.o2} mg/L</div>
+          `;
+        }
+      });
+  }
   // Escuchar cambios de temperatura
   auth.onAuthStateChanged(user => {
     if (user) {
 	document.getElementById("panel").style.display = "block";
 	document.getElementById("auth-buttons").style.display = "none";
-	const tempRef = db.ref("robot/temperatura");
-	tempRef.on("value", snapshot => {
-        	document.getElementById("temperatura").textContent = snapshot.val() + " °C";
-      	});
+	mostrarSensores(user.uid);
     } else {
     	document.getElementById("auth-buttons").style.display = "block";
      	document.getElementById("panel").style.display = "none";
