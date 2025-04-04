@@ -253,8 +253,9 @@ const sensores = {
   };
 
   firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.database();
+	const auth = firebase.auth();
+	const db = firebase.database();
+	const db1 = firebase.firestore();
 
   // Registro
   function register() {
