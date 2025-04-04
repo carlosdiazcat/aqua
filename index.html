@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Panel del Robot - Temperatura</title>
+  <meta charset="UTF-8" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eaf4f8;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    #panel {
+      display: none;
+    }
+    .temp-display {
+      font-size: 32px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Login / Registro</h2>
+  <input type="email" id="email" placeholder="Correo" />
+  <input type="password" id="password" placeholder="Contraseña" />
+  <button onclick="login()">Iniciar Sesión</button>
+  <button onclick="register()">Registrarse</button>
+
+  <div id="panel">
+    <h3>Temperatura del Robot</h3>
+    <div class="temp-display" id="temperatura">-- °C</div>
+    <button onclick="logout()">Cerrar sesión</button>
+  </div>
+</div>
+
+<script>
+  // 🔧 Reemplaza con tu configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_DOMINIO.firebaseapp.com",
+    databaseURL: "https://TU_DOMINIO.firebaseio.com",
+    projectId: "TU_PROJECT_ID",
+    storageBucket: "TU_BUCKET.appspot.com",
+    messagingSenderId: "XXXXXXX",
+    appId: "TU_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // Registro
+  function register() {
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(() => alert("Usuario registrado"))
+      .catch(err => alert(err.message));
+  }
+
+  // Login
+  function login() {
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        document.getElementById("panel").style.display = "block";
+      })
+      .catch(err => alert(err.message));
+  }
+
+  // Logout
+  function logout() {
+    auth.signOut().then(() => {
+      document.getElementById("panel").style.display = "none";
+    });
+  }
+
+  // Escuchar cambios de temperatura
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById("panel").style.display = "block";
+      const tempRef = db.ref("robot/temperatura");
+      tempRef.on("value", snapshot => {
+        document.getElementById("temperatura").textContent = snapshot.val() + " °C";
+      });
+    } else {
+      document.getElementById("panel").style.display = "none";
+    }
+  });
+
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+</script>
+
+</body>
+</html>
