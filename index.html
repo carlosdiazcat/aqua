@@ -277,12 +277,15 @@ const sensores = {
             bateria: 78,
             ph: 6.8,
             o2: 4.2,
-            t_agua: 18.3
+            t_agua: 18.3,
+	    conductivity: 1.1,
+            redox: 8.3,
+	    depth: 0.1,
           }
         });
       })
 	.then(() => alert("✅ Usuario registrado"))
-      .catch(err => alert("⚠️" + err.message));
+      .catch(err => alert("⚠️ Error en el registro"));
   }
 
   // Login
