@@ -104,18 +104,7 @@
 	footer {
 		color:white;
 	}
-	@media (max-width: 768px) {
-		.sensor-card {
-			flex: 1 1 45%; /* En pantallas medianas, las tarjetas ocupan el 45% de la fila */
-		}
-	}
-
-	@media (max-width: 480px) {
-		.sensor-card {
-			flex: 1 1 100%; /* En pantallas pequeñas, las tarjetas ocupan el 100% de la fila */
-		}
-	}
-    .container {
+   .container {
 	margin: auto;
 	display: flex;
 	justify-content: center;  /* Centra horizontalmente */
@@ -126,6 +115,43 @@
       padding: 10px;
       margin: 10px 0;
     }
+@media (max-width: 768px) {
+    .sensor-card {
+        flex: 1 1 45%; /* En pantallas medianas, las tarjetas ocupan el 45% de la fila */
+    }
+
+    .card {
+        max-width: 100%; /* El panel se adapta a pantallas más pequeñas */
+        margin: 5px; /* Reducir margen en pantallas pequeñas */
+    }
+
+    header {
+        font-size: 4vw; /* Reducir tamaño del texto en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .sensor-card {
+        flex: 1 1 100%; /* En pantallas pequeñas, las tarjetas ocupan el 100% de la fila */
+    }
+
+    .card {
+        max-width: 100%; /* El panel se adapta a pantallas más pequeñas */
+        margin: 5px; /* Reducir margen en pantallas pequeñas */
+    }
+
+    header {
+        font-size: 5vw; /* Ajustar el tamaño del texto del encabezado */
+    }
+
+    #map {
+        height: 250px; /* Reducir el tamaño del mapa en pantallas más pequeñas */
+    }
+
+    .container {
+        padding: 10px; /* Agregar algo de relleno al contenedor en pantallas pequeñas */
+    }
+}
   </style>
 </head>
 <body>
