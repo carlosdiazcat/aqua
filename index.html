@@ -304,22 +304,28 @@ const sensores = {
     });
   }
 function mostrarSensores(uid) {
-    db1.collection("users").doc(uid).get()
-      .then(doc => {
-        if (doc.exists) {
-          const sensores = doc.data().sensores;
-          const dashboard = document.getElementById("dashboard");
-          dashboard.innerHTML += `
-            <h3>Sensores del Robot 🤖</h3>
-            <div>🌡️ Temp. Aire: ${sensores.temperatura}°C</div>
-            <div>🔋 Batería: ${sensores.bateria}%</div>
-            <div>💧 Temp. Agua: ${sensores.t_agua}°C</div>
-            <div>🧪 pH: ${sensores.ph}</div>
-            <div>🫁 Oxígeno: ${sensores.o2} mg/L</div>
-          `;
-        }
+  db1.collection("users").doc(uid).onSnapshot(doc => {
+    if (doc.exists) {
+      const sensores = doc.data().sensores;
+      const dashboard = document.getElementById("dashboard");
+      dashboard.innerHTML = '';  // Limpiar antes de añadir nuevos datos
+
+      const datos = [
+        `🌡️ Temp. Aire: ${sensores.temperatura}°C`,
+        `🔋 Batería: ${sensores.bateria}%`,
+        `💧 Temp. Agua: ${sensores.t_agua}°C`,
+        `🧪 pH: ${sensores.ph}`,
+        `🫁 Oxígeno: ${sensores.o2} mg/L`
+      ];
+
+      datos.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = item;
+        dashboard.appendChild(div);
       });
-  }
+    }
+  });
+}
   // Escuchar cambios de temperatura
   auth.onAuthStateChanged(user => {
     if (user) {
