@@ -3,10 +3,14 @@
 <head>
 	<title>Panel del Robot - Temperatura</title>
 	<meta charset="UTF-8" />
+    	<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
     body {
@@ -346,39 +350,39 @@ function stopAutoRefresh() {
   clearInterval(refreshInterval);
 }
 
-  auth.onAuthStateChanged(user => {
-    if (user) {
+auth.onAuthStateChanged(user => {
+	if (user) {
 	document.getElementById("panel").style.display = "block";
 	document.getElementById("auth-buttons").style.display = "none";
 	startAutoRefresh();
 	mostrarSensores(user.uid);
-    } else {
-    	document.getElementById("auth-buttons").style.display = "block";
-     	document.getElementById("panel").style.display = "none";
-   	stopAutoRefresh();		
-    }
-  });
-	document.addEventListener("DOMContentLoaded", function () {
-	    let map, robotMarker, baseMarker;
-			// Crear el mapa
-	    map = L.map("map").setView([36.4873, -4.9509], 20);
-	    
-	    // Configurar OpenStreetMap como capa
-	    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	    }).addTo(map);
-	
-			// Crear los íconos personalizados
-			const robotIcon = L.divIcon({
-				className: 'leaflet-div-icon',
-				html: '<i class="fas fa-ship" style="font-size: 32px; color: blue;"></i>', // Ícono de barco
-				iconSize: [32, 32]
-			});
-	
-			const baseIcon = L.divIcon({
-				className: 'leaflet-div-icon',
-				html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
-				iconSize: [32, 32]
-			});
+	} else {
+	document.getElementById("auth-buttons").style.display = "block";
+	document.getElementById("panel").style.display = "none";
+	stopAutoRefresh();		
+	}
+});
+document.addEventListener("DOMContentLoaded", function () {
+    let map, robotMarker, baseMarker;
+		// Crear el mapa
+    map = L.map("map").setView([36.4873, -4.9509], 20);
+    
+    // Configurar OpenStreetMap como capa
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    }).addTo(map);
+
+	// Crear los íconos personalizados
+	const robotIcon = L.divIcon({
+		className: 'leaflet-div-icon',
+		html: '<i class="fas fa-ship" style="font-size: 32px; color: blue;"></i>', // Ícono de barco
+		iconSize: [32, 32]
+	});
+
+	const baseIcon = L.divIcon({
+		className: 'leaflet-div-icon',
+		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
+		iconSize: [32, 32]
+	});
 	    // Crear los marcadores
 	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
 	    robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
