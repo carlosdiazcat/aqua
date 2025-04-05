@@ -227,7 +227,6 @@
     <button onclick="logout()">Cerrar sesión</button>
   </div>
 </div>
-<div id="dashboard"></div>
 <footer>
 	<div class="footer-bottom">
 		<div class="footer-section4">
@@ -236,17 +235,6 @@
 	</div>	
 </footer>
 <script>
-const sensores = {
-      temperatura_aire: "🌡️ Temperatura Aire",
-      temperatura_agua: "💧 Temp Agua",
-      ph: "🧪 pH",
-      o2: "🧊 O₂",
-      conductividad: "🔌 Conductividad",
-      redox: "⚡ Redox",
-      profundidad: "📏 Profundidad",
-      voltaje: "🔋 Voltaje",
-      velocidad: "💨 Velocidad"
-    };
   const firebaseConfig = {
     apiKey: "AIzaSyDkeBGrjizytWl0hG-B6RnghtbFFzgbjVg",
     authDomain: "aqua-4fa0c.firebaseapp.com",
@@ -257,13 +245,13 @@ const sensores = {
     appId: "1:354138660998:web:4b41d8cb77f877a95b3107"
   };
 
-	firebase.initializeApp(firebaseConfig);
-	const auth = firebase.auth();
-	const db = firebase.database();
-	const db1 = firebase.firestore();
-	let refreshInterval;
-  // Registro
-  function register() {
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+const db1 = firebase.firestore();
+let refreshInterval;
+// Registro
+function register() {
     	const email = document.getElementById("email").value;
 	const password = document.getElementById("password").value;	
     auth.createUserWithEmailAndPassword(email, password)
@@ -297,17 +285,15 @@ const sensores = {
       	document.getElementById("auth-buttons").style.display = "none";
         document.getElementById("panel").style.display = "block";
       })
-      .catch(err => alert(err.message));
+      .catch(err => alert("Usuario no válido));
   }
 
   // Logout
 	function logout() {
 	  auth.signOut().then(() => {
-	    // Ocultar el panel de sensores
 	    document.getElementById("panel").style.display = "none";
 	    document.getElementById("auth-buttons").style.display = "block";
 	    
-	    // Limpiar los datos de sensores
 	    document.getElementById("robotStatus").textContent = "Inactivo";
 	    document.getElementById("bateria").textContent = "0%";
 	    document.getElementById("temperatura").textContent = "0.0 °C";
@@ -318,17 +304,13 @@ const sensores = {
 	    document.getElementById("redox").textContent = "0.0 mV";
 	    document.getElementById("depth").textContent = "0.0 m";
 	    
-	    // Limpiar el dashboard
-	    const dashboard = document.getElementById("dashboard");
-	    dashboard.innerHTML = '';  // Limpiar el contenido del dashboard
 	  });
 	}
 function mostrarSensores(uid) {
   db1.collection("users").doc(uid).onSnapshot(doc => {
     if (doc.exists) {
       const sensores = doc.data().sensores;
-
-      // Actualizar la interfaz con los nuevos datos de sensores
+	    
       document.getElementById("robotStatus").textContent = sensores.estado || "Inactivo";
       document.getElementById("bateria").textContent = `${sensores.bateria}%`;
       document.getElementById("temperatura").textContent = `${sensores.temperatura} °C`;
@@ -338,23 +320,6 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
-	    
-      const dashboard = document.getElementById("dashboard");
-      dashboard.innerHTML = '';  // Limpiar antes de añadir nuevos datos
-
-      const datos = [
-        `🌡️ Temp. Aire: ${sensores.temperatura}°C`,
-        `🔋 Batería: ${sensores.bateria}%`,
-        `💧 Temp. Agua: ${sensores.t_agua}°C`,
-        `🧪 pH: ${sensores.ph}`,
-        `🫁 Oxígeno: ${sensores.o2} mg/L`
-      ];
-
-      datos.forEach(item => {
-        const div = document.createElement("div");
-        div.textContent = item;
-        dashboard.appendChild(div);
-      });
     }
   });
 }
@@ -362,27 +327,21 @@ function mostrarSensores(uid) {
 function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
-      // Llamar a mostrarSensores con el UID del usuario para actualizar los datos
       mostrarSensores(user.uid);
     }
   });
 }
 
-// Ejecutar el refresco de datos cada 60 segundos (1 minuto)
 function startAutoRefresh() {
-  // Llamar una vez inmediatamente para que los datos se actualicen cuando el usuario inicie sesión
   refreshData();
 
-  // Llamar a refreshData cada 1 minuto (60000 milisegundos)
   refreshInterval = setInterval(refreshData, 60000);
 }
 
-// Detener el refresco automático cuando el usuario cierre sesión
 function stopAutoRefresh() {
   clearInterval(refreshInterval);
 }
 
-  // Escuchar cambios de temperatura
   auth.onAuthStateChanged(user => {
     if (user) {
 	document.getElementById("panel").style.display = "block";
