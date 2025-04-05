@@ -298,11 +298,28 @@ const sensores = {
   }
 
   // Logout
-  function logout() {
-    auth.signOut().then(() => {
-      document.getElementById("panel").style.display = "none";
-    });
-  }
+	function logout() {
+	  auth.signOut().then(() => {
+	    // Ocultar el panel de sensores
+	    document.getElementById("panel").style.display = "none";
+	    document.getElementById("auth-buttons").style.display = "block";
+	    
+	    // Limpiar los datos de sensores
+	    document.getElementById("robotStatus").textContent = "Inactivo";
+	    document.getElementById("bateria").textContent = "0%";
+	    document.getElementById("temperatura").textContent = "0.0 °C";
+	    document.getElementById("waterTemp").textContent = "0.0 °C";
+	    document.getElementById("ph").textContent = "0.0";
+	    document.getElementById("o2").textContent = "0.0 mg/L";
+	    document.getElementById("conductivity").textContent = "0.0 µS/cm";
+	    document.getElementById("redox").textContent = "0.0 mV";
+	    document.getElementById("depth").textContent = "0.0 m";
+	    
+	    // Limpiar el dashboard
+	    const dashboard = document.getElementById("dashboard");
+	    dashboard.innerHTML = '';  // Limpiar el contenido del dashboard
+	  });
+	}
 function mostrarSensores(uid) {
   db1.collection("users").doc(uid).onSnapshot(doc => {
     if (doc.exists) {
