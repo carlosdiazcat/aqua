@@ -257,11 +257,11 @@ const sensores = {
     appId: "1:354138660998:web:4b41d8cb77f877a95b3107"
   };
 
-  firebase.initializeApp(firebaseConfig);
+	firebase.initializeApp(firebaseConfig);
 	const auth = firebase.auth();
 	const db = firebase.database();
 	const db1 = firebase.firestore();
-
+	let refreshInterval;
   // Registro
   function register() {
     	const email = document.getElementById("email").value;
@@ -355,15 +355,41 @@ function mostrarSensores(uid) {
     }
   });
 }
+// Mantener los datos actualizados cada minuto
+function refreshData() {
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      // Llamar a mostrarSensores con el UID del usuario para actualizar los datos
+      mostrarSensores(user.uid);
+    }
+  });
+}
+
+// Ejecutar el refresco de datos cada 60 segundos (1 minuto)
+function startAutoRefresh() {
+  // Llamar una vez inmediatamente para que los datos se actualicen cuando el usuario inicie sesión
+  refreshData();
+
+  // Llamar a refreshData cada 1 minuto (60000 milisegundos)
+  refreshInterval = setInterval(refreshData, 60000);
+}
+
+// Detener el refresco automático cuando el usuario cierre sesión
+function stopAutoRefresh() {
+  clearInterval(refreshInterval);
+}
+
   // Escuchar cambios de temperatura
   auth.onAuthStateChanged(user => {
     if (user) {
 	document.getElementById("panel").style.display = "block";
 	document.getElementById("auth-buttons").style.display = "none";
+	startAutoRefresh();
 	mostrarSensores(user.uid);
     } else {
     	document.getElementById("auth-buttons").style.display = "block";
      	document.getElementById("panel").style.display = "none";
+   	stopAutoRefresh();		
     }
   });
 
