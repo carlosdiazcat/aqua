@@ -122,7 +122,7 @@
 	align-items: center;      /* Centra verticalmente */
     }
     input, button {
-      width: 100%;
+      width: fit-content;
       padding: 10px;
       margin: 10px 0;
     }
@@ -321,11 +321,28 @@ function mostrarSensores(uid) {
     }
   });
 }
+function updateRobotLocation(uid) {
+      const robotRef = db1.collection("users").doc(uid);
+
+      robotRef.onSnapshot((doc) => {
+        if (doc.exists) {
+          const ubic = doc.data().ubic;
+          if (ubic) {
+            const lat = ubic.lat;
+            const lng = ubic.lng;
+
+	    robotMarker.setLatLng([lat, lng]);
+            robotMarker.bindPopup(`Robot Autónomo - Lat: ${lat}, Lng: ${lng}`).openPopup();
+          }
+        }
+      });
+    }
 // Mantener los datos actualizados cada minuto
 function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
       mostrarSensores(user.uid);
+      updateRobotLocation(user.uid);
     }
   });
 }
@@ -354,10 +371,8 @@ auth.onAuthStateChanged(user => {
 });
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
-		// Crear el mapa
     map = L.map("map").setView([36.4873, -4.9509], 20);
     
-    // Configurar OpenStreetMap como capa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     }).addTo(map);
 
@@ -380,6 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
         }
+	
 </script>
 
 </body>
