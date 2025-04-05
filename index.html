@@ -17,7 +17,8 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        text-align: center;
+	justify-content: center;
+	align-items: center;
         position: relative;
         height: 100%;
         background: linear-gradient(to bottom, #10394b, #3a87c3);
@@ -107,13 +108,15 @@
 		color:white;
 	}
 	.container {
-	    margin: auto;
 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
-	    flex-direction: column;  /* Centra los elementos verticalmente */
+	    flex-direction: column;
 	    width: 100%;
-	    max-width: 500px; /* Limitar el ancho máximo de la caja de contenedor */
+	    height: 100%; /* Asegura que ocupe toda la altura de la pantalla */
+	    max-width: 500px;
+	    padding: 0;
+	    margin: 0; /* Elimina cualquier margen */
 	}
 	input, button {
 		width: fit-content;
@@ -154,7 +157,10 @@
     }
 
     .container {
-        padding: 10px; /* Agregar algo de relleno al contenedor en pantallas pequeñas */
+        padding: 0; /* Elimina el padding */
+        margin: 0; /* Elimina los márgenes */
+        width: 100%; /* Se ajusta completamente al ancho de la pantalla */
+        height: 100vh; /* Asegura que ocupe toda la pantalla */
     }
 }
   </style>
