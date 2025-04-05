@@ -105,11 +105,14 @@
 		color:white;
 	}
    .container {
-	margin: auto;
-	display: flex;
-	justify-content: center;  /* Centra horizontalmente */
-	align-items: center;      /* Centra verticalmente */
-    }
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  /* Centra los elementos verticalmente */
+    width: 100%;
+    max-width: 500px; /* Limitar el ancho máximo de la caja de contenedor */
+}
     input, button {
       width: fit-content;
       padding: 10px;
