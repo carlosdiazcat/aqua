@@ -332,9 +332,9 @@ function mostrarSensores(uid) {
       document.getElementById("waterTemp").textContent = `${sensores.t_agua} °C`;
       document.getElementById("ph").textContent = sensores.ph;
       document.getElementById("o2").textContent = `${sensores.o2} mg/L`;
-      document.getElementById("conductivity").textContent = `${sensores.conductividad} µS/cm`;
+      document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
-      document.getElementById("depth").textContent = `${sensores.profundidad} m`;
+      document.getElementById("depth").textContent = `${sensores.depth} m`;
 	    
       const dashboard = document.getElementById("dashboard");
       dashboard.innerHTML = '';  // Limpiar antes de añadir nuevos datos
