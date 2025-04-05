@@ -219,7 +219,15 @@
                 </div>
             </div>
         </section>
-
+	<section class="card">
+		<h2><i class="fas fa-gamepad"></i> Controles</h2>
+		<button onclick="sendCommand('start')">Iniciar</button>
+		<button onclick="sendCommand('stop')">Detener</button>
+		<button onclick="sendCommand('charge')">Ir a Base</button>
+		<button onclick="sendCommand('goTo', { lat: 37.7749, lng: -122.4194 })">Ir a Ubicación</button>
+		<h2><i class="fas fa-map-marker-alt"></i> Ubicación del Robot</h2>
+		<div id="map" style="height: 400px;"></div> <!-- Asegúrate de que el tamaño esté definido aquí -->
+        </section>
     <button onclick="logout()">Cerrar sesión</button>
   </div>
 </div>
