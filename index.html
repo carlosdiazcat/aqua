@@ -87,33 +87,33 @@
             font-size: 16px; /* Tamaño del texto */
         }
         .sensor-card p { 
-			margin: 0; 
-			font-size: 18px;
-			padding-top: 10px; 
+		margin: 0; 
+		font-size: 18px;
+		padding-top: 10px; 
+	}
+	.contenido-footer hr{
+		width: 10%;
+		height: 0%;
+		border: none;
+	}
+	.footer-section-term {
+		display: flex;
+		flex: 1;
+		justify-content: center; /* Centra el contenido horizontalmente */
+	}
+	footer {
+		color:white;
+	}
+	@media (max-width: 768px) {
+		.sensor-card {
+			flex: 1 1 45%; /* En pantallas medianas, las tarjetas ocupan el 45% de la fila */
 		}
-		.contenido-footer hr{
-			width: 10%;
-			height: 0%;
-			border: none;
-		}
-		.footer-section-term {
-			display: flex;
-			flex: 1;
-			justify-content: center; /* Centra el contenido horizontalmente */
-		}
-		footer {
-			color:white;
-		}
-		@media (max-width: 768px) {
-			.sensor-card {
-				flex: 1 1 45%; /* En pantallas medianas, las tarjetas ocupan el 45% de la fila */
-			}
-		}
+	}
 
-		@media (max-width: 480px) {
-			.sensor-card {
-				flex: 1 1 100%; /* En pantallas pequeñas, las tarjetas ocupan el 100% de la fila */
-			}
+	@media (max-width: 480px) {
+		.sensor-card {
+			flex: 1 1 100%; /* En pantallas pequeñas, las tarjetas ocupan el 100% de la fila */
+		}
     .container {
       max-width: 400px;
       margin: auto;
@@ -284,7 +284,7 @@ function register() {
       	document.getElementById("auth-buttons").style.display = "none";
         document.getElementById("panel").style.display = "block";
       })
-      .catch(err => alert("Usuario no válido));
+      .catch(err => alert("Usuario no válido"));
   }
 
   // Logout
