@@ -307,6 +307,18 @@ function mostrarSensores(uid) {
   db1.collection("users").doc(uid).onSnapshot(doc => {
     if (doc.exists) {
       const sensores = doc.data().sensores;
+
+      // Actualizar la interfaz con los nuevos datos de sensores
+      document.getElementById("robotStatus").textContent = sensores.estado || "Inactivo";
+      document.getElementById("bateria").textContent = `${sensores.bateria}%`;
+      document.getElementById("temperatura").textContent = `${sensores.temperatura} °C`;
+      document.getElementById("waterTemp").textContent = `${sensores.t_agua} °C`;
+      document.getElementById("ph").textContent = sensores.ph;
+      document.getElementById("o2").textContent = `${sensores.o2} mg/L`;
+      document.getElementById("conductivity").textContent = `${sensores.conductividad} µS/cm`;
+      document.getElementById("redox").textContent = `${sensores.redox} mV`;
+      document.getElementById("depth").textContent = `${sensores.profundidad} m`;
+	    
       const dashboard = document.getElementById("dashboard");
       dashboard.innerHTML = '';  // Limpiar antes de añadir nuevos datos
 
