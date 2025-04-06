@@ -53,18 +53,46 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             width: 500px;
         }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
+        #auth-buttons {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;  /* Limita el tamaño máximo del bloque */
+}
+
+#auth-buttons h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
 	#map {
             width: 100%;
             height: 400px; /* Asegúrate de que el mapa tenga suficiente altura */
@@ -139,6 +167,24 @@
 
     header {
         font-size: 4vw; /* Reducir tamaño del texto en pantallas más pequeñas */
+    }
+    #auth-buttons {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    input {
+        font-size: 1.1rem;  /* Aumenta el tamaño del texto */
+        padding: 14px;  /* Aumenta el padding */
+    }
+
+    button {
+        font-size: 1.1rem;
+        padding: 14px;
     }
 }
 
