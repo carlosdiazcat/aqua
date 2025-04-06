@@ -125,6 +125,7 @@
 		width: fit-content;
 		padding: 10px;
 		margin: 10px 0;
+		font-size: 16px; /* Tamaño de fuente para pantallas más grandes */
 	}
 @media (max-width: 768px) {
     .sensor-card {
@@ -163,6 +164,11 @@
         margin: 0; /* Elimina los márgenes */
         width: 100%; /* Se ajusta completamente al ancho de la pantalla */
         height: 100vh; /* Asegura que ocupe toda la pantalla */
+    }
+    input, button {
+        width: 100%; /* Los input y botones ocuparán todo el ancho disponible */
+        padding: 15px; /* Aumenta el tamaño de padding para mayor área de clic */
+        font-size: 18px; /* Aumenta el tamaño de la fuente */
     }
 }
   </style>
