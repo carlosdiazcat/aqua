@@ -524,14 +524,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 			baseMarker = L.marker([doc.data().base.lat, doc.data().base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
 			robotMarker = L.marker([doc.data().ubic.lat, doc.data().ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
-		    }
-		    else {
+            		} else {
 			    const data = doc.data();
 			    const ubic = data.ubic;
 	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
 	                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
 		    } 
-	else {
+	    } else {
 	    robotMarker.setLatLng([0, 0]);
 	    robotMarker.bindPopup(`Robot<br>Lat: 0, Lng: 0`);
 	    baseMarker.setLatLng([0, 0]);
