@@ -488,8 +488,9 @@ auth.onAuthStateChanged(user => {
 	document.getElementById("auth-buttons").style.display = "none";
 	startAutoRefresh();
 	mostrarSensores(user.uid);
+	const id = user.uid;
 	const username = user.displayName || user.email;
-        document.getElementById("username").textContent = username;
+        document.getElementById("username").textContent = user.email;
 	document.getElementById("user-info").style.display = "flex";
 	} else {
 	document.getElementById("auth-buttons").style.visibility = "visible";	
@@ -504,8 +505,7 @@ auth.onAuthStateChanged(user => {
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
 	
-	document.getElementById("redox").textContent = db1.collection("users").doc(uid);
-    map = L.map("map").setView([db1.collection("users").doc(uid).data().base.lat, db1.collection("users").doc(uid).data().base.lng], 20);
+    map = L.map("map").setView([db1.collection("users").doc(id).data().base.lat, db1.collection("users").doc(id).data().base.lng], 20);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     }).addTo(map);
