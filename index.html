@@ -463,7 +463,6 @@ function logout() {
     document.getElementById("redox").textContent = "0.0 mV";
     document.getElementById("depth").textContent = "0.0 m";
     document.getElementById("user-info").style.display = "none";
-    map.remove();
     map = 0;
   });
 }
@@ -508,6 +507,7 @@ auth.onAuthStateChanged(user => {
 	document.getElementById("panel").style.display = "block";
 	document.getElementById("auth-buttons").style.visibility = "hidden";
 	document.getElementById("auth-buttons").style.display = "none";
+	map = 0;
 	startAutoRefresh();
 	mostrarSensores(user.uid);
 	const id = user.uid;
@@ -521,7 +521,6 @@ auth.onAuthStateChanged(user => {
 	document.getElementById("panel").style.display = "none";
 	stopAutoRefresh();
 	document.getElementById("user-info").style.display = "none";
-	map.remove();
 	map = 0;
 	}
 });
