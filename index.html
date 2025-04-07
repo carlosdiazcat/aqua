@@ -504,7 +504,7 @@ auth.onAuthStateChanged(user => {
 
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
-	
+	console.log("Map " + map);
 	function listenToRobotLocation(uid) {
 	  db1.collection("users").doc(uid).onSnapshot((doc) => {
 	    if (doc.exists) {
