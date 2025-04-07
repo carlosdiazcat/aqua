@@ -554,7 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			    const data = doc.data();
 			    const ubic = data.ubic;
 			    const base = data.base;
-			    map = L.map("map").setView([base.lat, base.lng], 20);
+			    map.setView([base.lat, base.lng], 20);
 	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
 			    baseMarker.setLatLng([base.lat, base.lng]);
 	                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
