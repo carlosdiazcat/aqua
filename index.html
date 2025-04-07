@@ -499,6 +499,10 @@ auth.onAuthStateChanged(user => {
 	document.getElementById("user-info").style.display = "none";
 	}
 });
+window.addEventListener('resize', function() {
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(new google.maps.LatLng(40.7128, -74.0060));  // Reajustar el centro después del redimensionamiento
+});
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
     map = L.map("map").setView([36.4873, -4.9509], 20);
