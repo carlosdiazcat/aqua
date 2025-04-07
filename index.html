@@ -415,7 +415,7 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
-      robotMarker = L.marker([geoloca.lat, geoloca.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+      //robotMarker = L.marker([geoloca.lat, geoloca.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
     }
   });
 }
@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 	    // Crear los marcadores
 	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
-	    //robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	    robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
 	});
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
