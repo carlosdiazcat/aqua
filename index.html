@@ -380,8 +380,8 @@ function register() {
 	const password = document.getElementById("password").value;
     auth.signInWithEmailAndPassword(email, password)
       .then(() => {
-      	document.getElementById("auth-buttons").style.display = "none";
-        document.getElementById("panel").style.display = "block";
+      	document.getElementById("auth-buttons").style.visibility = "hidden";
+        document.getElementById("panel").style.visibility = "visible";
       })
       .catch(err => alert("Usuario no válido"));
   }
@@ -389,8 +389,8 @@ function register() {
   // Logout
 	function logout() {
 	  auth.signOut().then(() => {
-	    document.getElementById("panel").style.display = "none";
-	    document.getElementById("auth-buttons").style.display = "block";
+	    document.getElementById("panel").style.visibility = "hidden";
+	    document.getElementById("auth-buttons").style.visibility = "visible";
 	    document.getElementById("robotStatus").textContent = "Inactivo";
 	    document.getElementById("bateria").textContent = "0%";
 	    document.getElementById("temperatura").textContent = "0.0 °C";
@@ -441,13 +441,13 @@ function stopAutoRefresh() {
 
 auth.onAuthStateChanged(user => {
 	if (user) {
-	document.getElementById("panel").style.display = "block";
-	document.getElementById("auth-buttons").style.display = "none";
+	document.getElementById("panel").style.visibility = "visible";
+	document.getElementById("auth-buttons").style.visibility = "hidden";
 	startAutoRefresh();
 	mostrarSensores(user.uid);
 	} else {
-	document.getElementById("auth-buttons").style.display = "block";
-	document.getElementById("panel").style.display = "none";
+	document.getElementById("auth-buttons").style.visibility = "visible";
+	document.getElementById("panel").style.visibility = "hidden";
 	stopAutoRefresh();		
 	}
 });
