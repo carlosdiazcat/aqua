@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		iconSize: [32, 32]
 	});
 		baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
-		robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+		robotMarker = L.marker([36.4873, -4.0515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
 		function listenToRobotLocation(uid) {
 		  db1.collection("users").doc(uid).onSnapshot((doc) => {
 		    if (doc.exists) {
