@@ -463,6 +463,7 @@ function logout() {
     document.getElementById("redox").textContent = "0.0 mV";
     document.getElementById("depth").textContent = "0.0 m";
     document.getElementById("user-info").style.display = "none";
+    map = 0
   });
 }
 function mostrarSensores(uid) {
@@ -560,6 +561,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	    robotMarker.bindPopup(`Robot<br>Lat: 0, Lng: 0`);
 	    baseMarker.setLatLng([0, 0]);
 	    baseMarker.bindPopup(`Base<br>Lat: 0, Lng: 0`);
+	    map = 0
 	    }
 	  });
 	}
