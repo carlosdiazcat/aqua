@@ -463,7 +463,8 @@ function logout() {
     document.getElementById("redox").textContent = "0.0 mV";
     document.getElementById("depth").textContent = "0.0 m";
     document.getElementById("user-info").style.display = "none";
-    map = 0
+    map.remove();
+    map = 0;
   });
 }
 function mostrarSensores(uid) {
@@ -520,6 +521,8 @@ auth.onAuthStateChanged(user => {
 	document.getElementById("panel").style.display = "none";
 	stopAutoRefresh();
 	document.getElementById("user-info").style.display = "none";
+	map.remove();
+	map = 0;
 	}
 });
 
@@ -603,24 +606,22 @@ function sendCommand(command, params = {}) {
 	});
         document.getElementById("location").innerHTML = "Latitud: " + lat + "<br>Longitud: " + lon;
     }
-
-    // Función para manejar errores de geolocalización
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                document.getElementById("location").innerHTML = "Usuario rechazó la solicitud de geolocalización.";
-                break;
-            case error.POSITION_UNAVAILABLE:
-                document.getElementById("location").innerHTML = "La información de la ubicación no está disponible.";
-                break;
-            case error.TIMEOUT:
-                document.getElementById("location").innerHTML = "La solicitud para obtener la ubicación ha expirado.";
-                break;
-            case error.UNKNOWN_ERROR:
-                document.getElementById("location").innerHTML = "Ha ocurrido un error desconocido.";
-                break;
-        }
-    }
+    	function showError(error) {
+	        switch(error.code) {
+	            case error.PERMISSION_DENIED:
+	                document.getElementById("location").innerHTML = "Usuario rechazó la solicitud de geolocalización.";
+	                break;
+	            case error.POSITION_UNAVAILABLE:
+	                document.getElementById("location").innerHTML = "La información de la ubicación no está disponible.";
+	                break;
+	            case error.TIMEOUT:
+	                document.getElementById("location").innerHTML = "La solicitud para obtener la ubicación ha expirado.";
+	                break;
+	            case error.UNKNOWN_ERROR:
+	                document.getElementById("location").innerHTML = "Ha ocurrido un error desconocido.";
+	                break;
+	        }
+	}	
 </script>
 </body>
 </html>
