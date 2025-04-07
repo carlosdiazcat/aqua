@@ -440,7 +440,6 @@ function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
       	mostrarSensores(user.uid);
-        listenToRobotLocation(user.uid);
 	//updateRobotLocation(user.uid);
     }
   });
@@ -499,6 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		    }
 		  });
 		}
+        listenToRobotLocation(user.uid);
 	});
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
