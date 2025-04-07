@@ -498,7 +498,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		    }
 		  });
 		}
-        listenToRobotLocation(user.uid);
+		auth.onAuthStateChanged(user => {
+	    		if (user) {
+	        	listenToRobotLocation(user.uid);
+			}
+  		});
 	});
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
