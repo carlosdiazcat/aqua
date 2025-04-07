@@ -418,28 +418,6 @@ function mostrarSensores(uid) {
   });
 }
 function updateRobotLocation(uid) {
-	let map, robotMarker, baseMarker;
-    map = L.map("map").setView([36.4873, -4.9509], 20);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    }).addTo(map);
-
-	// Crear los íconos personalizados
-	const robotIcon = L.divIcon({
-		className: 'leaflet-div-icon',
-		html: '<i class="fas fa-ship" style="font-size: 32px; color: blue;"></i>', // Ícono de barco
-		iconSize: [32, 32]
-	});
-
-	const baseIcon = L.divIcon({
-		className: 'leaflet-div-icon',
-		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
-		iconSize: [32, 32]
-	});
-	    // Crear los marcadores
-	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
-	    //robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
-	
 	db1.collection("users").doc(uid).onSnapshot(doc => {
 	if (doc.exists) {
 		const geo = doc.data().ubic;
@@ -480,8 +458,8 @@ auth.onAuthStateChanged(user => {
 	stopAutoRefresh();		
 	}
 });
-/*document.addEventListener("DOMContentLoaded", function () {
-    const map, robotMarker, baseMarker;
+document.addEventListener("DOMContentLoaded", function () {
+    let map, robotMarker, baseMarker;
     map = L.map("map").setView([36.4873, -4.9509], 20);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -502,7 +480,7 @@ auth.onAuthStateChanged(user => {
 	    // Crear los marcadores
 	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
 	    //robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
-	});*/
+	});
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
         }
