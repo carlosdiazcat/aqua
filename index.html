@@ -467,7 +467,7 @@ auth.onAuthStateChanged(user => {
 	}
 });
 document.addEventListener("DOMContentLoaded", function () {
-    let map, robotMarker, baseMarker;
+    const map, robotMarker, baseMarker;
     map = L.map("map").setView([36.4873, -4.9509], 20);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
