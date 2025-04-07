@@ -418,6 +418,28 @@ function mostrarSensores(uid) {
   });
 }
 function updateRobotLocation(uid) {
+	const map, robotMarker, baseMarker;
+    map = L.map("map").setView([36.4873, -4.9509], 20);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    }).addTo(map);
+
+	// Crear los íconos personalizados
+	const robotIcon = L.divIcon({
+		className: 'leaflet-div-icon',
+		html: '<i class="fas fa-ship" style="font-size: 32px; color: blue;"></i>', // Ícono de barco
+		iconSize: [32, 32]
+	});
+
+	const baseIcon = L.divIcon({
+		className: 'leaflet-div-icon',
+		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
+		iconSize: [32, 32]
+	});
+	    // Crear los marcadores
+	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
+	    //robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	
       const robotRef = db1.collection("users").doc(uid);
 	db1.collection("users").doc(uid);
 	if (doc.exists) {
@@ -427,7 +449,7 @@ function updateRobotLocation(uid) {
 	        const lon = geoPoint.longitude; // Longitud
 	
 	        // Crear un marcador en el mapa
-	        L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	        baseMarker = L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
     }
 }
 // Mantener los datos actualizados cada minuto
