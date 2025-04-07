@@ -429,6 +429,7 @@ function updateRobotLocation(uid) {
 	        // Crear un marcador en el mapa
 	        L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
     }
+}
 // Mantener los datos actualizados cada minuto
 function refreshData() {
   auth.onAuthStateChanged(user => {
