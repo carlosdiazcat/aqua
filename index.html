@@ -436,7 +436,8 @@ auth.signInWithEmailAndPassword(email, password)
 .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      if (errorCode === 'auth/wrong-password' || errorMessage === 'Firebase: Error (auth/invalid-login-credentials)') {
+      console.error(errorCode);
+      if (errorCode === 'auth/invalid-login-credentials') {
         alert("Contraseña incorrecta. Por favor, verifica tu contraseña.");
       } else if (errorCode === 'auth/user-not-found') {
         alert("Correo electrónico no registrado. Por favor, revisa tu correo.");
