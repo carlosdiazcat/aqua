@@ -419,20 +419,15 @@ function mostrarSensores(uid) {
 }
 function updateRobotLocation(uid) {
       const robotRef = db1.collection("users").doc(uid);
-
-      robotRef.onSnapshot((doc) => {
-        if (doc.exists) {
-          const ubic = doc.data().ubic;
-          if (ubic) {
-            const lat = ubic.lat;
-            const lng = ubic.lng;
-
-	    robotMarker.setLatLng([lat, lng]);
-	    robotMarker = L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
-            robotMarker.bindPopup(`Robot Autónomo - Lat: ${lat}, Lng: ${lng}`).openPopup();
-          }
-        }
-      });
+	db1.collection("users").doc(uid);
+	if (doc.exists) {
+	        const data = doc.data().loc;
+	        const geoPoint = data.loc; // Obtener el GeoPoint
+	        const lat = geoPoint.latitude;  // Latitud
+	        const lon = geoPoint.longitude; // Longitud
+	
+	        // Crear un marcador en el mapa
+	        L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
     }
 // Mantener los datos actualizados cada minuto
 function refreshData() {
