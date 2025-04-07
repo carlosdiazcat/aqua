@@ -440,33 +440,11 @@ function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
       	mostrarSensores(user.uid);
-	updateRobotLocation(user.uid);
+        listenToRobotLocation(user.uid);
+	//updateRobotLocation(user.uid);
     }
   });
 }
-
-// Función para escuchar cambios en la ubicación del robot desde Firestore
-function listenToRobotLocation(uid) {
-  const db1 = firebase.firestore();
-  db1.collection("users").doc(uid).onSnapshot((doc) => {
-    if (doc.exists) {
-      const data = doc.data();
-      const ubic = data.ubic;
-      if (ubic && ubic.lat && ubic.lng) {
-        // Actualizar la posición del robot en el mapa
-        robotMarker.setLatLng([ubic.lat, ubic.lng]);
-        robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
-        robotMarker = L.marker([ubic.lat, ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}");
-      }
-    }
-  });
-}
-
-// Supongamos que el usuario ya está autenticado y tiene un UID
-const uid = "6bJL5J8BMeWCwHpNNRiihiVQG6E2"; // Reemplaza con el UID real del usuario autenticado
-
-// Escuchar los cambios de la ubicación del robot en Firestore
-listenToRobotLocation(uid);
 	
 function startAutoRefresh() {
   refreshData();
@@ -509,9 +487,24 @@ document.addEventListener("DOMContentLoaded", function () {
 		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
 		iconSize: [32, 32]
 	});
-	    // Crear los marcadores
-	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
-	    robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+		// Crear los marcadores
+		baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
+		robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+		// Función para escuchar cambios en la ubicación del robot desde Firestore
+		function listenToRobotLocation(uid) {
+		  db1.collection("users").doc(uid).onSnapshot((doc) => {
+		    if (doc.exists) {
+		      const data = doc.data();
+		      const ubic = data.ubic;
+		      if (ubic && ubic.lat && ubic.lng) {
+		        // Actualizar la posición del robot en el mapa
+		        robotMarker.setLatLng([ubic.lat, ubic.lng]);
+		        robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
+		        robotMarker = L.marker([ubic.lat, ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}");
+		      }
+		    }
+		  });
+		}
 	});
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
