@@ -505,7 +505,8 @@ auth.onAuthStateChanged(user => {
 
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
-    map = L.map("map").setView([36.4873, -4.9509], 20);
+    db1.collection("users").doc(uid)
+    map = L.map("map").setView([doc.data().base.lat, doc.data().base.lng], 20);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     }).addTo(map);
@@ -522,11 +523,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
 		iconSize: [32, 32]
 	});
-		baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base");
-		robotMarker = L.marker([36.4873, -4.0515],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
-		function listenToRobotLocation(uid) {
-		  db1.collection("users").doc(uid).onSnapshot((doc) => {
-		    if (doc.exists) {
+	baseMarker = L.marker([doc.data().base.lat, doc.data().base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
+	robotMarker = L.marker([doc.data().ubic.lat, doc.data().ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
+	
+	function listenToRobotLocation(uid) {
+	  db1.collection("users").doc(uid).onSnapshot((doc) => {
+	    if (doc.exists) {
 			    const data = doc.data();
 			    const ubic = data.ubic;
 	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
