@@ -436,15 +436,13 @@ auth.signInWithEmailAndPassword(email, password)
 .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error(errorCode);
       if (errorCode === 'auth/invalid-login-credentials') {
         alert("Contraseña incorrecta. Por favor, verifica tu contraseña.");
       } else if (errorCode === 'auth/user-not-found') {
         alert("Correo electrónico no registrado. Por favor, revisa tu correo.");
       } else {
-        alert("Error al iniciar sesión: " + errorMessage);
+        alert("Error al iniciar sesión");
       }
-      console.error(errorMessage);
     });
 }
 document.getElementById("email").addEventListener("keydown", function(event) {
