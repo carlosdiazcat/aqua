@@ -478,12 +478,6 @@ const uid = "6bJL5J8BMeWCwHpNNRiihiVQG6E2"; // Reemplaza con el UID real del usu
 
 // Escuchar los cambios de la ubicación del robot en Firestore
 listenToRobotLocation(uid);
-
-// Ejemplo de cómo podrías actualizar la ubicación (esto puede venir de un evento o función)
-// Simula una actualización de ubicación para el robot
-const newLat = 36.4880; // Nueva latitud
-const newLng = -4.9510; // Nueva longitud
-saveRobotLocation(uid, newLat, newLng);
 	
 function startAutoRefresh() {
   refreshData();
