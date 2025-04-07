@@ -401,15 +401,13 @@ function register() {
 	  });
 	}
 function mostrarSensores(uid) {
-	let map, robotMarker, baseMarker;
-	map = L.map("map").setView([36.4873, -4.9509], 20);
 	
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	}).addTo(map);
   db1.collection("users").doc(uid).onSnapshot(doc => {
     if (doc.exists) {
       const sensores = doc.data().sensores; 
-      const geoloca = doc.data().ubic;
+      const geoPoint = doc.data().loc; // Obtener el GeoPoint
+        const lat = geoPoint.latitude;  // Latitud
+        const lon = geoPoint.longitude; // Longitud
 	      
       document.getElementById("robotStatus").textContent = sensores.estado || "Inactivo";
       document.getElementById("bateria").textContent = `${sensores.bateria}%`;
@@ -420,7 +418,12 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
-      robotMarker = L.marker([geoloca.lat, geoloca.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	let map, robotMarker, baseMarker;
+	map = L.map("map").setView([36.4873, -4.9509], 20);
+	
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	}).addTo(map);
+      robotMarker = L.marker([lat, lon],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
     }
   });
 }
