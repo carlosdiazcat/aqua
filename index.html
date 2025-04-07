@@ -442,6 +442,7 @@ function register() {
 	    document.getElementById("depth").textContent = "0.0 m";
 	    document.getElementById("redox").textContent = "0.0 mV";
 	    document.getElementById("depth").textContent = "0.0 m";
+	    document.getElementById("user-info").style.display = "none";
 	  });
 	}
 function mostrarSensores(uid) {
@@ -489,12 +490,14 @@ auth.onAuthStateChanged(user => {
 	mostrarSensores(user.uid);
 	const username = user.displayName || user.email;
         document.getElementById("username").textContent = username;
+	document.getElementById("user-info").style.display = "flex";
 	} else {
 	document.getElementById("auth-buttons").style.visibility = "visible";	
 	document.getElementById("auth-buttons").style.display = "block";
 	document.getElementById("panel").style.visibility = "hidden";
 	document.getElementById("panel").style.display = "none";
-	stopAutoRefresh();		
+	stopAutoRefresh();
+	document.getElementById("user-info").style.display = "none";
 	}
 });
 document.addEventListener("DOMContentLoaded", function () {
