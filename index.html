@@ -413,9 +413,9 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
+      document.getElementById("depth").textContent = `${doc.data().ubic} m`;
     }
   });
-updateRobotLocation(user.uid);
 }
 function updateRobotLocation(uid) {
   db1.collection("users").doc(uid).onSnapshot(doc => {
@@ -438,7 +438,8 @@ function updateRobotLocation(uid) {
 function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
-      mostrarSensores(user.uid);
+      	mostrarSensores(user.uid);
+	updateRobotLocation(user.uid);
     }
   });
 }
