@@ -419,8 +419,7 @@ function register() {
 	document.getElementById("auth-buttons").style.display = "none";
         document.getElementById("panel").style.visibility = "visible";
         document.getElementById("panel").style.display = "block";
-        const username = user.displayName || email;
-        document.getElementById("username").textContent = username;
+        document.getElementById("username").textContent = email;
       })
       .catch(err => alert("Usuario no válido"));
   }
