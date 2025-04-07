@@ -456,6 +456,7 @@ function listenToRobotLocation(uid) {
         // Actualizar la posición del robot en el mapa
         robotMarker.setLatLng([ubic.lat, ubic.lng]);
         robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
+        robotMarker = L.marker([ubic.lat, ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}");
       }
     }
   });
