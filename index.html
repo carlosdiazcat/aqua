@@ -413,7 +413,8 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
-      document.getElementById("depth").textContent = `${doc.data().ubic} m`;
+      document.getElementById("redox").textContent = `${doc.data().ubic.lat} mV`;
+      document.getElementById("depth").textContent = `${doc.data().ubic.lng} m`;
     }
   });
 }
