@@ -160,6 +160,32 @@ button:hover {
 		margin: 10px 0;
 		font-size: 16px; /* Tamaño de fuente para pantallas más grandes */
 	}
+	#user-info {
+	    position: absolute;
+	    top: 20px;    /* Ajusta este valor si lo necesitas más cerca o más lejos del borde superior */
+	    right: 20px;  /* Ajusta este valor para mover el contenido a la derecha */
+	    display: flex;
+	    align-items: center;
+	    gap: 10px; /* Espacio entre el nombre y el botón */
+	    color: white; /* Color del texto */
+	}
+	
+	#username {
+	    font-size: 1.2rem; /* Tamaño del texto del nombre */
+	}
+	
+	#logoutButton {
+	    padding: 8px 12px;
+	    background-color: #007bff;
+	    color: white;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	}
+	
+	#logoutButton:hover {
+	    background-color: #0056b3;
+	}
 @media (max-width: 768px) {
     .sensor-card {
         flex: 1 1 45%; /* En pantallas medianas, las tarjetas ocupan el 45% de la fila */
@@ -238,6 +264,10 @@ button:hover {
 		<button onclick="login()">Iniciar Sesión</button>
 		<button onclick="register()">Registrarse</button>
   	</div>
+	<div id="user-info">
+	    <span id="username"></span> <!-- Nombre del usuario -->
+	    <button id="logoutButton" onclick="logout()">Cerrar sesión</button>
+	</div>
   	<div id="panel">
 	  <section id="sensorData" class="card">
             	<h2>Estado del Robot</h2>
