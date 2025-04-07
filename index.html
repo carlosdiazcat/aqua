@@ -548,9 +548,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
         }
-	
-</script>
-<script>
     // Función para obtener la ubicación del dispositivo
     function getLocation() {
         if (navigator.geolocation) {
@@ -564,12 +561,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function showPosition(position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-	db1.collection("users").doc(uid).set({
-          ubic: {
-            lat: lat,
-            lng: lon,
-          }
-        });
+	auth.onAuthStateChanged(user => {
+	    if (user) {
+	    	ubic: {
+	            lat: lat,
+	            lng: lon,
+	          }
+	  }
+	});
+   	saveRobotLocation(uid, newLat, newLng);
         document.getElementById("location").innerHTML = "Latitud: " + lat + "<br>Longitud: " + lon;
     }
 
