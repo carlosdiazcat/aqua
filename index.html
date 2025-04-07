@@ -571,10 +571,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		  }, { merge: true })
 		  .then(() => {
 		    console.log("Ubicación del robot guardada correctamente");
+		  document.getElementById("location").innerHTML = "Latitud: " + lat + "<br>Longitud: " + lon + "<br> " + user.uid;
 		  })
 	  }
 	});
-   	saveRobotLocation(uid, newLat, newLng);
         document.getElementById("location").innerHTML = "Latitud: " + lat + "<br>Longitud: " + lon;
     }
 
