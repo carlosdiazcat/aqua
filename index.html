@@ -503,8 +503,7 @@ auth.onAuthStateChanged(user => {
 
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
-    db1.collection("users").doc(uid)
-    map = L.map("map").setView([doc.data().base.lat, doc.data().base.lng], 20);
+    map = L.map("map").setView([db1.collection("users").doc(uid).data().base.lat, db1.collection("users").doc(uid).data().base.lng], 20);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     }).addTo(map);
