@@ -250,7 +250,7 @@ button:hover {
 	                        <i class="fas fa-battery-half"></i> <!-- Icono de batería -->
 	                        <p><strong>Batería</strong></p>
 	                    </div>
-	                    <p><span id="bateria">100%</span></p>
+	                    <p><span id="bateria">--%</span></p>
 	                </div>
 		</div>
 		<div class="sensor-row">
@@ -259,14 +259,14 @@ button:hover {
 	                        <i class="fas fa-thermometer-half"></i> <!-- Icono de profundidad -->
 	                        <p><strong>Tª Aire</strong></p>
 	                    </div>
-	                    <p id="temperatura">7.09 °C</p>
+	                    <p id="temperatura">-- °C</p>
 		    	</div>
                 	<div class="sensor-card">
 	                    <div class="sensor-content">
 	                        <i class="fas fa-tint"></i> <!-- Icono de profundidad -->
 	                        <p><strong>Tª Agua</strong></p>
 	                    </div>
-	                    <p id="waterTemp">9.7 °C</p>
+	                    <p id="waterTemp">-- °C</p>
 		   	</div>
             	</div>
             	<div class="sensor-row">
@@ -275,14 +275,14 @@ button:hover {
 	                        <i class="fas fa-vial"></i> <!-- Icono de profundidad -->
 	                        <p><strong>pH</strong></p>
 	                    </div>
-	                    <p id="ph">7.77</p>
+	                    <p id="ph">--</p>
             		</div>
                 	<div class="sensor-card">
 	                    <div class="sensor-content">
 	                        <i class="fas fa-flask"></i> <!-- Icono de profundidad -->
 	                        <p><strong>O²</strong></p>
 	                    </div>
-	                    <p id="o2">8.04 mg/L</p>
+	                    <p id="o2">-- mg/L</p>
                 	</div>
             	</div>
             	<div class="sensor-row">
@@ -291,21 +291,21 @@ button:hover {
 	                        <i class="fas fa-water"></i> <!-- Icono de profundidad -->
 	                        <p><strong>Cond.</strong></p>
 	                    </div>
-	                    <p id="conductivity">0.88 µS/cm</p>
+	                    <p id="conductivity">-- µS/cm</p>
 			</div>
 			<div class="sensor-card">
 	                    <div class="sensor-content">
 	                        <i class="fas fa-random"></i> <!-- Icono de profundidad -->
 	                        <p><strong>Redox</strong></p>
 	                    </div>
-	                    <p id="redox">106.1 mV</p>
+	                    <p id="redox">-- mV</p>
 	                </div>
 	                <div class="sensor-card">
 	                    <div class="sensor-content">
 	                        <i class="fas fa-ruler-combined"></i> <!-- Icono de profundidad -->
 	                        <p><strong>Deep</strong></p>
 	                    </div>
-	                    <p id="depth">1.5 m</p>
+	                    <p id="depth">-- m</p>
                 	</div>
             	</div>
         </section>
@@ -356,13 +356,17 @@ function register() {
           email,
           sensores: {
             temperatura: 22.5,
-            bateria: 78,
+            bateria: 50,
             ph: 6.8,
             o2: 4.2,
             t_agua: 18.3,
 	    conductivity: 1.1,
             redox: 8.3,
 	    depth: 0.1,
+          },
+	  ubic: {
+            lat: 0,
+            lng: 0,
           }
         });
       })
@@ -387,7 +391,6 @@ function register() {
 	  auth.signOut().then(() => {
 	    document.getElementById("panel").style.display = "none";
 	    document.getElementById("auth-buttons").style.display = "block";
-	    
 	    document.getElementById("robotStatus").textContent = "Inactivo";
 	    document.getElementById("bateria").textContent = "0%";
 	    document.getElementById("temperatura").textContent = "0.0 °C";
@@ -397,7 +400,8 @@ function register() {
 	    document.getElementById("conductivity").textContent = "0.0 µS/cm";
 	    document.getElementById("redox").textContent = "0.0 mV";
 	    document.getElementById("depth").textContent = "0.0 m";
-	    
+	    document.getElementById("redox").textContent = "0.0 mV";
+	    document.getElementById("depth").textContent = "0.0 m";
 	  });
 	}
 function mostrarSensores(uid) {
@@ -466,15 +470,20 @@ document.addEventListener("DOMContentLoaded", function () {
 		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
 		iconSize: [32, 32]
 	});
-		baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
-		robotMarker = L.marker([36.4873, -4.0515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+		baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base");
+		robotMarker = L.marker([36.4873, -4.0515],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
 		function listenToRobotLocation(uid) {
 		  db1.collection("users").doc(uid).onSnapshot((doc) => {
 		    if (doc.exists) {
-		      const data = doc.data();
-		      const ubic = data.ubic;
-                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
-                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
+			    const data = doc.data();
+			    const ubic = data.ubic;
+	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
+	                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
+		    } else {
+			    robotMarker.setLatLng([0, 0]);
+	                    robotMarker.bindPopup(`Robot<br>Lat: 0, Lng: 0`);
+			    baseMarker.setLatLng([0, 0]);
+			    baseMarker.bindPopup(`Base<br>Lat: 0, Lng: 0`);
 		    }
 		  });
 		}
