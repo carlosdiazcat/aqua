@@ -509,9 +509,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	  db1.collection("users").doc(uid).onSnapshot((doc) => {
 	    if (doc.exists) {
 		    if (!map) {
-			    const data = doc.data();
-			    const base = data.base;
-			map = L.map("map").setView([base.lat, base.lng], 20);
+			map = L.map("map").setView([db1.collection("users").doc(uid).data().base.lat, db1.collection("users").doc(uid).data().base.lng], 20);
+    
    			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { }).addTo(map);
 			const robotIcon = L.divIcon({
 				className: 'leaflet-div-icon',
@@ -523,8 +522,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
 				iconSize: [32, 32]
 			});
-			baseMarker = L.marker([base.lat, base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
-			robotMarker = L.marker([ubic.lat, ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
+			baseMarker = L.marker([doc.data().base.lat, doc.data().base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
+			robotMarker = L.marker([doc.data().ubic.lat, doc.data().ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
 		    }
 		  else {
 			    const data = doc.data();
