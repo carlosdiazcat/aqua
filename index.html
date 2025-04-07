@@ -447,7 +447,7 @@ function updateRobotLocation(uid) {
 	        const lon = geoPoint.longitude; // Longitud
 	
 	        // Crear un marcador en el mapa
-	        baseMarker = L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	        robotMarker = L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
 	}
     }
 }
