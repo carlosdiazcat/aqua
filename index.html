@@ -190,10 +190,14 @@ button:hover {
 }
 
 @media (max-width: 480px) {
-    .sensor-card {
-        flex: 1 1 100%; /* En pantallas pequeñas, las tarjetas ocupan el 100% de la fila */
-    }
-
+	.sensor-card {
+		flex: 1 1 100%; /* En pantallas pequeñas, las tarjetas ocupan el 100% de la fila */
+	}
+	#auth-buttons h2 {
+		margin-bottom: 20px;
+		font-size: 2rem;
+		color: #333;
+	}
     .card {
         max-width: 100%; /* El panel se adapta a pantallas más pequeñas */
         margin: 5px; /* Reducir margen en pantallas pequeñas */
