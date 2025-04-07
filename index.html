@@ -442,12 +442,9 @@ function updateRobotLocation(uid) {
 	
 	db1.collection("users").doc(uid).onSnapshot(doc => {
 	if (doc.exists) {
-	        const geoPoint = doc.data().loc; // Obtener el GeoPoint
-	        const lat = geoPoint.latitude;  // Latitud
-	        const lon = geoPoint.longitude; // Longitud
-	
+		const geo = doc.data().ubic;
 	        // Crear un marcador en el mapa
-	        robotMarker = L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	        robotMarker = L.marker([geo.lat, geo.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
 	}
     }
 }
