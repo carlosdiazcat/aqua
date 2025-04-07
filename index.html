@@ -444,22 +444,10 @@ function refreshData() {
     }
   });
 }
-function saveRobotLocation(uid, lat, lng) {
-  const db1 = firebase.firestore();
-  db1.collection("users").doc(uid).set({
-    ubic: { lat, lng }
-  }, { merge: true })
-  .then(() => {
-    console.log("Ubicación del robot guardada correctamente");
-  })
-  .catch((error) => {
-    console.error("Error al guardar la ubicación:", error);
-  });
-}
 
 // Función para escuchar cambios en la ubicación del robot desde Firestore
 function listenToRobotLocation(uid) {
-  const db = firebase.firestore();
+  const db1 = firebase.firestore();
   db1.collection("users").doc(uid).onSnapshot((doc) => {
     if (doc.exists) {
       const data = doc.data();
