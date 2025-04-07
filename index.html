@@ -388,7 +388,6 @@ function register() {
     auth.createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
         const uid = userCredential.user.uid;
-        // Datos iniciales
         return db1.collection("users").doc(uid).set({
           email,
           sensores: {
@@ -402,6 +401,10 @@ function register() {
 	    depth: 0.1,
           },
 	  ubic: {
+            lat: 0,
+            lng: 0,
+          },
+	  base: {
             lat: 0,
             lng: 0,
           }
