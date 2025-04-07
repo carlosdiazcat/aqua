@@ -418,6 +418,8 @@ function register() {
 	document.getElementById("auth-buttons").style.display = "none";
         document.getElementById("panel").style.visibility = "visible";
         document.getElementById("panel").style.display = "block";
+        const username = user.displayName || email;
+        document.getElementById("username").textContent = username;
       })
       .catch(err => alert("Usuario no válido"));
   }
@@ -485,6 +487,8 @@ auth.onAuthStateChanged(user => {
 	document.getElementById("auth-buttons").style.display = "none";
 	startAutoRefresh();
 	mostrarSensores(user.uid);
+	const username = user.displayName || user.email;
+        document.getElementById("username").textContent = username;
 	} else {
 	document.getElementById("auth-buttons").style.visibility = "visible";	
 	document.getElementById("auth-buttons").style.display = "block";
