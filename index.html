@@ -511,6 +511,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		    if (map==0) { 
 		    	const data = doc.data();
 		    	const base = data.base;
+			const ubic = data.ubic;
 			map = L.map("map").setView([base.lat, base.lng], 20);
     
    			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { }).addTo(map);
