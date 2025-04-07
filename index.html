@@ -505,50 +505,49 @@ auth.onAuthStateChanged(user => {
 document.addEventListener("DOMContentLoaded", function () {
     let map, robotMarker, baseMarker;
 	
-    map = L.map("map").setView([db1.collection("users").doc(id).data().base.lat, db1.collection("users").doc(id).data().base.lng], 20);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    }).addTo(map);
-
-	// Crear los íconos personalizados
-	const robotIcon = L.divIcon({
-		className: 'leaflet-div-icon',
-		html: '<i class="fas fa-ship" style="font-size: 32px; color: blue;"></i>', // Ícono de barco
-		iconSize: [32, 32]
-	});
-
-	const baseIcon = L.divIcon({
-		className: 'leaflet-div-icon',
-		html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
-		iconSize: [32, 32]
-	});
-	baseMarker = L.marker([doc.data().base.lat, doc.data().base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
-	robotMarker = L.marker([doc.data().ubic.lat, doc.data().ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
-	
 	function listenToRobotLocation(uid) {
 	  db1.collection("users").doc(uid).onSnapshot((doc) => {
 	    if (doc.exists) {
+		    if (!map) {
+			map = L.map("map").setView([db1.collection("users").doc(uid).data().base.lat, db1.collection("users").doc(uid).data().base.lng], 20);
+    
+   			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { }).addTo(map);
+			const robotIcon = L.divIcon({
+				className: 'leaflet-div-icon',
+				html: '<i class="fas fa-ship" style="font-size: 32px; color: blue;"></i>', // Ícono de barco
+				iconSize: [32, 32]
+			});
+			const baseIcon = L.divIcon({
+				className: 'leaflet-div-icon',
+				html: '<i class="fas fa-home" style="font-size: 32px; color: green;"></i>', // Ícono de casa
+				iconSize: [32, 32]
+			});
+			baseMarker = L.marker([doc.data().base.lat, doc.data().base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
+			robotMarker = L.marker([doc.data().ubic.lat, doc.data().ubic.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot");
+		    }
+		  else {
 			    const data = doc.data();
 			    const ubic = data.ubic;
 	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
 	                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
-		    } else {
-			    robotMarker.setLatLng([0, 0]);
-	                    robotMarker.bindPopup(`Robot<br>Lat: 0, Lng: 0`);
-			    baseMarker.setLatLng([0, 0]);
-			    baseMarker.bindPopup(`Base<br>Lat: 0, Lng: 0`);
-		    }
-		  });
+		    } 
+	else {
+	    robotMarker.setLatLng([0, 0]);
+	    robotMarker.bindPopup(`Robot<br>Lat: 0, Lng: 0`);
+	    baseMarker.setLatLng([0, 0]);
+	    baseMarker.bindPopup(`Base<br>Lat: 0, Lng: 0`);
+	    }
+	  });
+	}
+	auth.onAuthStateChanged(user => {
+		if (user) {
+		listenToRobotLocation(user.uid);
 		}
-		auth.onAuthStateChanged(user => {
-	    		if (user) {
-	        	listenToRobotLocation(user.uid);
-			}
-  		});
 	});
-	function sendCommand(command, params = {}) {
-            socket.emit("robot-command", { command, params });
-        }
+});
+function sendCommand(command, params = {}) {
+    socket.emit("robot-command", { command, params });
+}
     // Función para obtener la ubicación del dispositivo
     function getLocation() {
         if (navigator.geolocation) {
