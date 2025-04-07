@@ -440,16 +440,15 @@ function updateRobotLocation(uid) {
 	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
 	    //robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
 	
-      const robotRef = db1.collection("users").doc(uid);
-	db1.collection("users").doc(uid);
+	db1.collection("users").doc(uid).onSnapshot(doc => {
 	if (doc.exists) {
-	        const data = doc.data().loc;
-	        const geoPoint = data.loc; // Obtener el GeoPoint
+	        const geoPoint = doc.data().loc; // Obtener el GeoPoint
 	        const lat = geoPoint.latitude;  // Latitud
 	        const lon = geoPoint.longitude; // Longitud
 	
 	        // Crear un marcador en el mapa
 	        baseMarker = L.marker([lat, lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+	}
     }
 }
 // Mantener los datos actualizados cada minuto
