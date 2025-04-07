@@ -401,14 +401,9 @@ function register() {
 	  });
 	}
 function mostrarSensores(uid) {
-	
   db1.collection("users").doc(uid).onSnapshot(doc => {
     if (doc.exists) {
       const sensores = doc.data().sensores; 
-      const geoPoint = doc.data().loc; // Obtener el GeoPoint
-        const lat = geoPoint.latitude;  // Latitud
-        const lon = geoPoint.longitude; // Longitud
-	      
       document.getElementById("robotStatus").textContent = sensores.estado || "Inactivo";
       document.getElementById("bateria").textContent = `${sensores.bateria}%`;
       document.getElementById("temperatura").textContent = `${sensores.temperatura} °C`;
@@ -418,12 +413,24 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
-	let map, robotMarker, baseMarker;
-	map = L.map("map").setView([36.4873, -4.9509], 20);
-	
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	}).addTo(map);
-      robotMarker = L.marker([lat, lon],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
+    }
+  });
+updateRobotLocation(user.uid);
+}
+function updateRobotLocation(uid) {
+  db1.collection("users").doc(uid).onSnapshot(doc => {
+    if (doc.exists) {
+      const geoloca = doc.data().ubic;
+      
+      // Actualizar la posición del marcador del robot
+      const lat = geoloca.lat;
+      const lng = geoloca.lng;
+
+      // Mover el marcador a la nueva ubicación
+      robotMarker.setLatLng([lat, lng]);
+
+      // También podrías actualizar el popup con la nueva información si lo deseas
+      robotMarker.bindPopup("Robot Autónomo - Nueva ubicación");
     }
   });
 }
@@ -432,7 +439,6 @@ function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
       mostrarSensores(user.uid);
-      //updateRobotLocation(user.uid);
     }
   });
 }
