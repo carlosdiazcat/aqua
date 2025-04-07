@@ -347,10 +347,10 @@ button:hover {
         </section>
 	<section class="card">
 		<h2><i class="fas fa-gamepad"></i> Controles</h2>
-		<button onclick="sendCommand('start')">Iniciar</button>
-		<button onclick="sendCommand('stop')">Detener</button>
-		<button onclick="sendCommand('charge')">Ir a Base</button>
-		<button onclick="sendCommand('goTo', { lat: 37.7749, lng: -122.4194 })">Ir a Ubicación</button>
+		<button onclick="sendCommand('start')"><i class="fas fa-play"></i>Iniciar</button>
+		<button onclick="sendCommand('stop')"><i class="fas fa-stop"></i>Detener</button>
+		<button onclick="sendCommand('charge')"><i class="fas fa-home"></i>Base</button>
+		<button onclick="sendCommand('goTo', { lat: 37.7749, lng: -122.4194 })"><i class="fas fa-road"></i>Ir a Ubicación</button>
 		<button onclick="getLocation()">Obtener Ubicación</button>
 		<p id="location"></p>
 		<h2><i class="fas fa-map-marker-alt"></i> Ubicación del Robot</h2>
