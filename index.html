@@ -356,6 +356,9 @@ button:hover {
     <button onclick="logout()">Cerrar sesión</button>
   </div>
 </div>
+<button onclick="getLocation()">Obtener Ubicación</button>
+
+<p id="location"></p>
 <footer>
 	<div class="footer-bottom">
 		<div class="footer-section4">
@@ -550,6 +553,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 	
 </script>
+<script>
+    // Función para obtener la ubicación del dispositivo
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            document.getElementById("location").innerHTML = "La geolocalización no es soportada por este navegador.";
+        }
+    }
 
+    // Función para mostrar la posición del dispositivo
+    function showPosition(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        document.getElementById("location").innerHTML = "Latitud: " + lat + "<br>Longitud: " + lon;
+    }
+
+    // Función para manejar errores de geolocalización
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                document.getElementById("location").innerHTML = "Usuario rechazó la solicitud de geolocalización.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                document.getElementById("location").innerHTML = "La información de la ubicación no está disponible.";
+                break;
+            case error.TIMEOUT:
+                document.getElementById("location").innerHTML = "La solicitud para obtener la ubicación ha expirado.";
+                break;
+            case error.UNKNOWN_ERROR:
+                document.getElementById("location").innerHTML = "Ha ocurrido un error desconocido.";
+                break;
+        }
+    }
+</script>
 </body>
 </html>
