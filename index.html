@@ -563,10 +563,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const lon = position.coords.longitude;
 	auth.onAuthStateChanged(user => {
 	    if (user) {
-	    	base: {
+	    	db1.collection("users").doc(user.uid).set({
+		    base: {
 	            lat: lat,
 	            lng: lon,
 	          }
+		  }, { merge: true })
+		  .then(() => {
+		    console.log("Ubicación del robot guardada correctamente");
+		  })
 	  }
 	});
    	saveRobotLocation(uid, newLat, newLng);
