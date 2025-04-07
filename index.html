@@ -531,7 +531,9 @@ document.addEventListener("DOMContentLoaded", function () {
             		} else {
 			    const data = doc.data();
 			    const ubic = data.ubic;
+			    const base = data.base;
 	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
+			    baseMarker = L.marker([base.lat, base.lng],{ icon: baseIcon }).addTo(map).bindPopup("Base");
 	                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
 		    } 
 	    } else {
