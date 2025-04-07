@@ -535,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		    	const data = doc.data();
 		    	const base = data.base;
 			const ubic = data.ubic;
-			map = L.map("map").setView([base.lat, base.lng], 20);
+			map = L.map("map").setView([base.lat, base.lng], 30);
     
    			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { }).addTo(map);
 			const robotIcon = L.divIcon({
@@ -554,7 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			    const data = doc.data();
 			    const ubic = data.ubic;
 			    const base = data.base;
-			    map.setView([base.lat, base.lng], 20);
+			    map.setView([base.lat, base.lng], 30);
 	                    robotMarker.setLatLng([ubic.lat, ubic.lng]);
 			    baseMarker.setLatLng([base.lat, base.lng]);
 	                    robotMarker.bindPopup(`Robot Autónomo<br>Lat: ${ubic.lat}, Lng: ${ubic.lng}`);
@@ -564,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	    robotMarker.bindPopup(`Robot<br>Lat: 0, Lng: 0`);
 	    baseMarker.setLatLng([0, 0]);
 	    baseMarker.bindPopup(`Base<br>Lat: 0, Lng: 0`);
-	    map.setView([0, 0], 20);
+	    map.setView([0, 0], 30);
 	    map = 0
 	    }
 	  });
