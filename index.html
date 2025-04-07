@@ -503,11 +503,12 @@ auth.onAuthStateChanged(user => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+	let robotMarker, baseMarker;
 	function listenToRobotLocation(uid) {
 	  db1.collection("users").doc(uid).onSnapshot((doc) => {
 	    if (doc.exists) {
 		    if (!map) {     
-    			let map, robotMarker, baseMarker;
+    			let map;
 		    	const data = doc.data();
 		    	const base = data.base;
 			map = L.map("map").setView([base.lat, base.lng], 20);
