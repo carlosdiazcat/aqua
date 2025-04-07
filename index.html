@@ -418,7 +418,7 @@ function mostrarSensores(uid) {
   });
 }
 function updateRobotLocation(uid) {
-	const map, robotMarker, baseMarker;
+	let map, robotMarker, baseMarker;
     map = L.map("map").setView([36.4873, -4.9509], 20);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -484,7 +484,7 @@ auth.onAuthStateChanged(user => {
 	stopAutoRefresh();		
 	}
 });
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     const map, robotMarker, baseMarker;
     map = L.map("map").setView([36.4873, -4.9509], 20);
     
@@ -506,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	    // Crear los marcadores
 	    baseMarker = L.marker([36.4873, -4.9508],{ icon: baseIcon }).addTo(map).bindPopup("Base de Carga");
 	    //robotMarker = L.marker([36.4873, -4.9515],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
-	});
+	});*/
 	function sendCommand(command, params = {}) {
             socket.emit("robot-command", { command, params });
         }
