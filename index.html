@@ -413,25 +413,6 @@ function mostrarSensores(uid) {
       document.getElementById("conductivity").textContent = `${sensores.conductivity} µS/cm`;
       document.getElementById("redox").textContent = `${sensores.redox} mV`;
       document.getElementById("depth").textContent = `${sensores.depth} m`;
-      document.getElementById("redox").textContent = `${doc.data().ubic.lat} mV`;
-      document.getElementById("depth").textContent = `${doc.data().ubic.lng} m`;
-    }
-  });
-}
-function updateRobotLocation(uid) {
-  db1.collection("users").doc(uid).onSnapshot(doc => {
-    if (doc.exists) {
-      const geoloca = doc.data().ubic;
-      
-      // Actualizar la posición del marcador del robot
-      const lat = geoloca.lat;
-      const lng = geoloca.lng;
-
-      // Mover el marcador a la nueva ubicación
-      robotMarker.setLatLng([lat, lng]);
-
-      // También podrías actualizar el popup con la nueva información si lo deseas
-      robotMarker.bindPopup("Robot Autónomo - Nueva ubicación");
     }
   });
 }
@@ -440,7 +421,6 @@ function refreshData() {
   auth.onAuthStateChanged(user => {
     if (user) {
       	mostrarSensores(user.uid);
-	//updateRobotLocation(user.uid);
     }
   });
 }
