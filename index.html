@@ -404,7 +404,7 @@ function mostrarSensores(uid) {
   db1.collection("users").doc(uid).onSnapshot(doc => {
     if (doc.exists) {
       const sensores = doc.data().sensores; 
-      const geoloca = doc.data().ubic;
+      //const geoloca = doc.data().ubic;
 	      
       document.getElementById("robotStatus").textContent = sensores.estado || "Inactivo";
       document.getElementById("bateria").textContent = `${sensores.bateria}%`;
@@ -418,15 +418,6 @@ function mostrarSensores(uid) {
       //robotMarker = L.marker([geoloca.lat, geoloca.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
     }
   });
-}
-function updateRobotLocation(uid) {
-	db1.collection("users").doc(uid).onSnapshot(doc => {
-	if (doc.exists) {
-		const geo = doc.data().ubic;
-	        // Crear un marcador en el mapa
-	        robotMarker = L.marker([geo.lat, geo.lng],{ icon: robotIcon }).addTo(map).bindPopup("Robot Autónomo");
-	}
-    }
 }
 // Mantener los datos actualizados cada minuto
 function refreshData() {
